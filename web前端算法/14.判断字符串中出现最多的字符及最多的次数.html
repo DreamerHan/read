@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+let str = 'aaaaaaaaaaabbbbbbbcccccccczzzzzz'
+
+
+const countFun = () => {
+
+  // map 将每个字符统计出来
+  const map = new Map()
+  for(let item of str) {
+    map.set(item, (map.get(item) || 0) + 1)
+  }
+
+  // 排序统计
+  let maxNum = 0
+  let maxStr = ''
+  for(let [key, value] of map) {
+    if(value > maxNum) {
+      maxNum = value
+      maxStr = key
+    }
+  }
+
+  return [maxStr, maxNum]
+}
+
+
+
+
+console.log(countFun(str))
+
+
+
+</script>
+</body>
+</html>

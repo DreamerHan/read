@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+const instanceofs = (target, obj) => {
+  let proto = target
+
+  while(proto) {
+    if( proto === obj.prototype) {
+      return true
+    }
+
+    proto = proto.__proto__
+  }
+
+  return false
+}
+
+
+console.log( instanceofs( [1,2,3], Object ))
+
+
+</script>
+
+
+</body>
+</html>

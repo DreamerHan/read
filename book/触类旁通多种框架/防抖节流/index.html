@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="mouse"></div>
+
+
+  <script>
+
+    function throttle(fn, delay) {
+
+      let timer;
+
+      return function() {
+        let _args = arguments;
+        let _this = this
+
+        if(timer) {
+          return
+        }
+
+        timer = setTimeout(() => {
+
+          fn.apply(_this, _args)
+          timer = null
+
+        }, delay)
+      }
+    }
+
+    let testThrottleFn = throttle(test, 500)
+
+    function test(a) {
+      console.log('打印', a)
+    }
+
+
+    window.onresize = function() {
+      testThrottleFn('aaa')
+    }
+
+
+
+  </script>
+
+
+
+</body>
+</html>

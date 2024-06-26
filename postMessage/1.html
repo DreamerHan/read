@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+<div class="box">
+  <iframe id="i-frame" src="https://baike.so.com"></iframe>
+
+  <div class="message"></div>
+
+</div>
+
+
+
+<style>
+body {
+  
+}
+.box {
+  width: 100%;
+  display: flex;
+}
+
+iframe {
+  flex: 1;
+  height: 100vh;
+}
+
+.message {
+  width: 400px;
+}
+
+</style>
+
+
+<script>
+
+console.log('window.frames: ', window.frames)
+
+const iframe = document.getElementById('i-frame')
+
+
+iframe.addEventListener('load', () => {
+
+  console.log('Event_load: iframe loaded')
+
+
+  setTimeout(() => {
+    console.log('window 自己发送 message')
+    window.postMessage('window自己的 message', '*')
+  }, 2000)
+
+
+  setTimeout(() => {
+    console.log('post message 发送')
+    iframe.contentWindow.postMessage('iframe postMessage', '*')
+  }, 1000)
+  
+})
+
+
+window.addEventListener('message', (event) => {
+  console.log('event', event)
+}, false)
+
+
+
+
+</script>
+
+</body>
+</html>

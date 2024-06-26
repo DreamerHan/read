@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script> 
+
+let a = {
+  value: '1',
+  next: {
+    value: '1',
+    next: {
+      value: '2',
+      next: {
+        value: '3',
+        next: {
+          value: '3',
+          next: {
+            value: '4',
+            next: {
+              value: '5',
+              next: null
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+console.log('之前', a)
+// 当前的链表形式是 1 -> 1 -> 2 -> 3 -> 3 -> 4 -> 5 -> null
+
+
+const delDuplicates = (head) => {
+
+  if(!head) {
+    return head
+  }
+
+  let curr = head
+  while(curr.next) {
+
+    if(curr.value === curr.next.value) {
+      curr.next = curr.next.next
+    } else {
+      curr = curr.next
+    }
+  }
+
+  return head
+}
+
+console.log( delDuplicates(a) )
+
+
+
+</script>
+</body>
+</html>

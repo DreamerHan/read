@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="example"></div>
+  
+  <script>
+    var source = new EventSource('http://127.0.0.1:8855/stream');
+    var div = document.getElementById('example');
+    
+    source.onopen = function (event) {
+      console.log('onOpen Event', event)
+      div.innerHTML += '<p>Connection open ...</p>';
+    };
+    
+    source.onerror = function (event) {
+      console.log('onError Event', event)
+      div.innerHTML += '<p>Connection close.</p>';
+    };
+    
+    source.addEventListener('connecttime', function (event) {
+      console.log('onConnecttime Event', event)
+      div.innerHTML += ('<p>Start time: ' + event.data + '</p>');
+    }, false);
+    
+    source.onmessage = function (event) {
+      console.log('onMessage Event', event)
+      div.innerHTML += ('<p>Ping: ' + event.data + '</p>');
+    };
+
+
+    // 10s 断开链接，服务端会接收到断开信息
+    setTimeout(() => {
+      source.close()
+    }, 10000)
+  </script>
+
+  
+</body>
+</html>

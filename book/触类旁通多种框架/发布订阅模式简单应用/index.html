@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+class Notify {
+  constructor() {
+    this.subscribers = []
+  }
+
+  add(handler) {
+    this.subscribers.push(handler)
+  }
+
+  emit() {
+    this.subscribers.forEach(subscriber => subscriber())
+  }
+}
+
+
+let notify = new Notify()
+
+notify.add(() => console.log('emit事件执行'))
+
+notify.emit()
+
+
+</script>
+
+</body>
+</html>

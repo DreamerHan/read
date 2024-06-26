@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 100 相同的树
+
+const tree1 = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: null, right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null, right: null
+    },
+    right: {
+      val: '7',
+      left: null, right: null
+    }
+  }
+}
+
+const tree2 = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: null, right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null, right: null
+    },
+    right: {
+      val: '7',
+      left: null, right: null
+    }
+  }
+}
+
+
+
+const testSame = (tree1, tree2) => {
+  if(!tree1 && !tree2) {
+    return true
+  }
+
+
+  if(!tree1 || !tree2) {
+    return false
+  }
+
+
+  if(tree1.val !== tree2.val) {
+    return false
+  }
+
+
+  return testSame( tree1.left, tree2.left ) && testSame(tree1.right, tree2.right)
+}
+
+
+console.log( testSame(tree1, tree2) )
+
+
+
+
+
+const isSameTree = (tree1, tree2) => {
+  if( tree1 === null && tree2 === null) {
+    return true
+  }
+
+  if( tree1 === null || tree2 === null) {
+    return false
+  }
+
+  if(tree1.val !== tree2.val) {
+    return false
+  }
+
+  return isSameTree( tree1.left, tree2.left ) && isSameTree( tree1.right, tree2.right )
+
+}
+
+console.log(isSameTree(tree1, tree2))
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+const a = { value: 'a' }
+const b = { value: 'b' }
+const c = { value: 'c' }
+const d = { value: 'd' }
+
+a.next = b
+b.next = c
+c.next = d
+d.next = null
+
+
+const test = JSON.parse(JSON.stringify(a))
+console.log('原始', test)
+
+
+let obj = a
+while(obj && obj.value) {
+   console.log(obj.value)
+
+   obj = obj.next
+
+}
+
+console.log('之后的 a', a)
+
+
+
+
+</script>
+
+
+
+
+
+  
+</body>
+</html>

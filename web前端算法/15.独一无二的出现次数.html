@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 1207
+
+// 对一个整数的数组，统计数组中每个数的出现次数。如果每个数字出现的次数是独一无二的，就返回 true， 否则返回 false.
+
+const arr1 = [1,2,3,1,4,9,6]
+const arr2 = [1,2,3,2,1,5,4,2,3]
+
+const uniqueOccurrences = (arr) => {
+
+  // map 统计次数
+  const map = new Map()
+  for(let item of arr) {
+
+    if(map.has(item)) {
+      map.set(item, map.get(item) + 1)
+    } else {
+      map.set(item, 1)
+    }
+  }
+
+
+  // set 去重
+  const set = new Set()
+  for(let [key, value] of map) {
+    set.add(value)
+  }
+
+
+  return set.size === map.size
+
+}
+
+
+
+
+
+
+
+
+</script>
+  
+</body>
+</html>

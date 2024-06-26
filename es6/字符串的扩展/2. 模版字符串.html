@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+
+const tmpl = addrs => `
+  <table>
+    ${addrs.map(addr => `
+      <tr><td>${addr.first}</td></tr>
+      <tr><td>${addr.last}</td></tr>  
+    `).join('')}
+  </table>
+`
+
+
+
+const data = [
+  { first: 'Jane', last: 'Bond'},
+  { first: 'Lars', last: 'Croft' }
+]
+
+const result = tmpl(data)
+
+console.log('result', result)
+
+document.body.innerHTML = result
+
+
+</script>
+
+
+
+</body>
+</html>

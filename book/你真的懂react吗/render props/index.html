@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+<script>
+
+
+class WindowWidth extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      width: 0
+    }
+  }
+
+  componentDidMount() {
+
+    this.setState({
+      width: window.innerWidth
+    })
+
+    window.addEventListener('resize', ({ target}) => {
+      this.state({
+        width: target.width
+      })
+    })
+  }
+
+  render() {
+    return this.props.children(this.state.width)
+  }
+}
+
+
+
+<WindowWidth>
+  {
+    width => (width > 800 ? <div>show</div> : null)
+  }  
+</WindowWidth>
+
+
+
+
+</script>
+
+
+</body>
+</html>

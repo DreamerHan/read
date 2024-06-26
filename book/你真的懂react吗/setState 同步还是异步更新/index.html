@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+class Test extends React.Component {
+
+  onClick() {
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+
+  componentDidMount() {
+    document.querySelector('#btn-raw').addEventListener('click', this.onClick)
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <button id="btn-raw">click to react</button>  
+        
+        <button onClick={this.onClick}>click in react</button>
+      </React.Fragment>
+
+    )
+  }
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>

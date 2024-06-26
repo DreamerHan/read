@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 226 反转二叉树
+
+// 反转类型的题，就是找一个空的模板接受A，然后让B给A，再把 A 给 B
+// 最后进行递归就行了
+
+const tree = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: null, right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null, right: null
+    },
+    right: {
+      val: '7',
+      left: {
+        val: '8',
+        left: null,
+        right: null
+      }, 
+      right: null
+    }
+  }
+}
+
+
+const reverseTree1 = (tree) => {
+  if(!tree) return;
+
+  const stack = [tree]
+
+  while( stack.length ) {  
+    const o = stack.shift()
+
+    const node = o.left
+    o.left = o.right
+    o.right = node
+
+    o.left && stack.push(o.left)
+    o.right && stack.push(o.right)
+  }
+
+  return tree
+
+}
+
+console.log('测试>>>', reverseTree1(tree))
+
+
+
+
+
+
+// const reverseTree = (tree) => {
+//   if( tree === null) return null
+
+//   let tmp = tree.left
+//   tree.left = tree.right
+//   tree.right = tmp
+
+//   reverseTree(tree.left)
+//   reverseTree(tree.right)
+
+//   return tree
+// }
+
+
+// console.log(reverseTree(tree))
+
+
+</script>
+
+
+</body>
+</html>

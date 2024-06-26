@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<div id="app">
+
+  <h1>{{stage}} 平台课程：{{course.title}}</h1>
+  <p>{{course.title}} 是 {{course.author}} 发布的课程</p>
+  <p>发布时间为 {{ course.publishTime }}</p>
+
+  <input v-model="inputData" type="text">
+
+</div>
+  
+<script>
+
+let data = {
+  stage: 'GitChat',
+  course: {
+    title: '前端开发进阶',
+    author: 'Susu',
+    publishTime: '2018年5月'
+  },
+  inputData: 'v-model绑定'
+}
+
+
+
+const compile = (el, data) => {
+
+  let fragment = document.createDocumentFragment()
+
+  while(child = el.firstChild) {
+    // 这是一个剪切的过程，真实的 dom节点被全部截取掉了
+    fragment.appendChild(child)
+  }
+
+
+  // 对 el 中的内容进行替换
+  const replace = (fragment) => {
+
+    Array.from(fragment.childNodes).forEach(node => {
+
+      let textContent = node.textContent
+
+      // 注意正则匹配要加上 \s 空格匹配，不然会会出现替换是 key 值是 ' course ' 导致获取数据失败的问题
+      let reg = /\{\{\s?(.*?)\s?\}\}/g
+
+      // 模板语法替换
+      if(node.nodeType === 3 && reg.test(textContent)) {
+        const nodeTextContent = node.textContent
+
+        const replaceText = () => {
+          node.textContent = nodeTextContent.replace(reg, (matched, placeholder) => {
+            
+            const splitData = placeholder.split('.')
+
+            const reulst = splitData.reduce((prev, key) => {
+              return prev[key]
+            }, data)
+
+            return reulst
+
+          })
+
+        }
+
+        replaceText()
+      }
+
+      
+      if(node.nodeType === 1 && node.nodeName === 'INPUT') {
+
+        let attributesArray = node.attributes
+
+        console.log('attributesArray>>', attributesArray)
+
+        console.log(Array.from(attributesArray))
+
+        Array.from(attributesArray).forEach(attr => {
+          let attributeName = attr.name
+          let attributeValue = attr.value
+
+          if(attributeName.includes('v-')) {
+            node.value = data[attributeValue]
+          }
+
+          node.addEventListener('input', e => {
+            let newVal = e.target.value
+            console.log('新数据更新')
+            data[attributeValue] = newVal
+            // 更改数据源，触发setter
+          })
+        })
+      }
+      
+      // 如果还有字节点，则继续递归 replace
+      if(node.childNodes && node.childNodes.length) {
+        replace(node)
+      }
+    })
+  }
+
+
+  replace(fragment)
+
+  el.appendChild(fragment)
+
+  return el
+
+}
+
+
+compile(document.querySelector('#app'), data)
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

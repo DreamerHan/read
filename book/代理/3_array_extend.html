@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+  // 数组方法的代理
+
+  const arrExtend = Object.create(Array.prototype)
+
+  const arrMethods = [
+    'push',
+    'pop',
+    'shift',
+    'unshift',
+    'splice',
+    'sort',
+    'reverse'
+  ]
+
+  arrMethods.forEach(method => {
+    const oldMethod = Array.prototype[method]
+
+    const newMethod = function(...args) {
+      oldMethod.apply(this, args)
+
+      console.log(`${method}方法被调用了`)
+    }
+
+    arrExtend[method] = newMethod
+
+  })
+
+  Array.prototype = Object.assign(Array.prototype, arrExtend)
+
+  let array = [1,2,3,4]
+
+  array.push(5) // push 方法被调用了
+
+
+
+</script>
+</body>
+</html>

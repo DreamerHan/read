@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+const patch = (node, patches) => {
+  let walker = { index: 0 }
+
+  walk(node, walker, patches)
+}
+
+const walk = (node, walker, patches) => {
+  let currentPath = patches[walker.index]
+
+  let childNodes = node.childNodes
+
+  childNodes.forEach(child => {
+
+    walker.index ++
+
+    walk(child, walker, patches)
+  })
+
+  if(currentPath) {
+    doPatch(node, currentPatch)
+  }
+}
+
+
+
+const doPatch = (node, patches) => {
+
+  patches.forEach(patch => {
+
+    switch(path.type) {
+      case 'MODIFY_ATTRIBUTES':
+        const attributes = patch.diffAttributeResult.attributes
+
+        for(let key in attributes) {
+          if(node.nodeType !== 1) return
+
+          const value = attributes[key]
+
+          if(value) {
+            setAttribute(node, key, value)
+          } else {
+            node.removeAttribute(key)
+          }
+        }
+        break;
+
+      case 'MODIFY_TEXT':
+        node.textContent = patch.data
+        break;
+
+      case 'REPLACE':
+        let newNode = (patches.newNode instanceof Element) ? render(patch.newNode) : document.createTextNode(patch.newNode)
+
+        node.parentNode.replaceChild(newNode, node)
+        break;
+
+      case 'REMOVE':
+        node.parentNode.removeChild(node)
+        break;
+
+      default:
+        break;
+    }
+  })
+}
+
+// 验证步骤
+// 1. 创建虚拟dom节点
+// 2. 虚拟dom节点挂在到 document.body 上
+// 3. 新旧虚拟 dom 之间获得 patches
+// 4. 执行 patch 方法 patch(element, patches)
+
+
+
+
+</script>
+</body>
+</html>

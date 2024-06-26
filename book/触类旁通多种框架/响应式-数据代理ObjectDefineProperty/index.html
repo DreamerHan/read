@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+
+<script>
+
+let data = {
+  stage: 'GitChat',
+  course: {
+      title: '前端开发工程师',
+      author: ['Susu', 'Xiaoxin'],
+      publishTime: '2024年1月21日'
+  }
+}
+
+
+const arrExtend = Object.create(Array.prototype)
+const arrMethods = ['push', 'pop', 'shift', 'unshift', 'splice', 'reverse', 'sort']
+
+arrMethods.forEach(method => {
+  const oldMethod = Array.prototype[method]
+  const newMethod = function(...args) {
+    // 在新方法里调用原来的方法 
+    oldMethod.apply(this, args)
+
+    console.log(`${method} 方法执行了`)
+  }
+
+  arrExtend[method] = newMethod
+})
+
+// 最后扩展的方法合并到数组的方法原型中去
+Array.prototype= Object.assign(Array.prototype, arrExtend)
+
+
+const observe = data => {
+  if(!data || typeof data !== 'object') {
+    return
+  }
+
+  Object.keys(data).forEach(key => {
+    let currentVal = data[key]
+
+    // 从第一层数据开始做递归代理
+    observe(currentVal)
+
+    Object.defineProperty(data, key, {
+      enumerable: true,
+      configurable: false,
+      get() {
+        console.log(`get ${key} value now, value is ${JSON.stringify(currentVal)}`)
+        return currentVal
+      },
+      set(newVal) {
+        currentVal = newVal
+        console.log(`setting ${key} value now, new value is ${JSON.stringify(currentVal)}`)
+      }
+    })
+  })
+}
+observe(data)
+
+
+data.course.author.push('new')
+
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+<script>
+
+
+// 冒泡排序 需要做两个大循环
+
+// 假设做一个循环处理，一个循环结束，会将最大的值移动到最后面。
+
+// 所以，如果像让所有的最大值都依次向后移动，需要遍历整个数组，使每个数组的值都经过一次对比的循环处理。
+
+// 所以，大循环主导的是数组整的的遍历顺序，小循环主导的是大小的对比和移动。
+
+// 为了提升性能，小循环会使得循环的 length = arr.length - 1 - i，i 是外层循环的索引
+
+// arr.length - 1 是因为，对比时是当前 值 j 和 j+1 对比，当 j = arr.length - 1 时，j + 1 已经不存在了。
+
+// 所以不需要遍历到 arr.length - 1， 长度为10的数组，只需要遍历到 arr[8] 和 arr[9] 即可。j = 8 就是最大，所以是 arr.length - 1
+
+// 而外层的 i 主导的遍历次数，经过 1 次后，最大的肯定已经在最后面了，也就是 arr[9] 最大。所以，arr[8] 和 arr[9] 就不需要比较了
+
+// 此时只需要比较到 arr[7] 和 arr[8] 即可，所以，第二次循环时，内部小循环的遍历次数，只需要到 7 即可。即， arr.length - 1 - i = 10 - 1 - 1 = 8
+
+
+// length = 10
+const arr = [29, 10, 15, 4, 3, 2, 22, 20, 19, 14]
+
+const arrSort = (arr) => {
+
+  for(let i=0; i < arr.length; i++) {
+    console.log('---------------------')
+    const test = JSON.parse(JSON.stringify(arr))
+    console.log(i, test)
+
+    for(let j=0; j < arr.length - i - 1; j++) {
+
+      console.log('i>', i, 'j>', j)
+      
+      if(arr[j] > arr[j+1]) {
+        let temp = arr[j]
+        arr[j] = arr[j+1]
+        arr[j+1] = temp
+      }
+    }
+
+  }
+
+  return arr
+
+}
+</script>
+
+
+</body>
+</html>

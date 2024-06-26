@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 3
+
+const str1 = 'abcabcbb' // 结果 3 
+const str2 = 'bbbbb' // 结果 1 不重复的字串只有 b
+const str3 = 'pwwkew' // 结果3 不重复的子串是 wke。注意：pwke 不是连续的子串
+
+const lengthOfLongestSubstring = function(str) {
+  const map = new Map()
+
+  let l = 0;
+  let num = 0;
+
+  for(let i =0; i<str.length; i++) {
+
+    if( map.has(str[i]) && map.get(str[i]) >= l ) {
+      l = map.get(str[i]) + 1
+    }
+
+    console.log('i>>', i, 'l>>', l)
+    num = Math.max( num, i - l + 1 )
+
+    console.log('num>>', num)
+    // key 是值，value 是索引
+    map.set(str[i], i)
+
+    console.log('map>>', map)
+
+  }
+
+  return num
+}
+
+
+// lengthOfLongestSubstring(str1)
+// lengthOfLongestSubstring(str2)
+// lengthOfLongestSubstring(str3)
+
+lengthOfLongestSubstring('abbxpa')
+
+
+// a ===> 0
+// b ===> 1
+// c ===> 2
+
+// 第一个 c
+// i = 2
+// l = 0
+// num = 2 - 0 + 1 = 3
+
+
+// b ===> 1
+// c ===> 2
+// a ===> 3
+
+// i = 3
+// l = 1
+// num = 3 - 1 + 1 = 3
+
+// c ===> 2
+// a ===> 3
+// b ===> 4
+
+// i = 4
+// l = 2
+// num = 4 - 2 + 1 = 3
+
+// a ===> 3
+// b ===> 4
+// c ===> 5
+
+// i = 5
+// l = 3
+// num = 5 - 3 + 1 = 3
+
+
+// a ===> 3
+// b ===> 6
+// c ===> 5
+
+// i = 6
+// l = 5
+// num = 6 - 5 + 1 = 2 取大值 3
+
+// i = 7
+// a ===> 3
+// b ===> 7
+// c ===> 5
+// l = 5
+// num = 7 - 5 + 1 = 3
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

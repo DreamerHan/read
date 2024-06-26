@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+  const a = { value: 'a' }
+  const b = { value: 'b' }
+  const c = { value: 'c' }
+  const d = { value: 'd' }
+  
+  a.next = b
+  b.next = c
+  c.next = d
+  d.next = c
+
+
+
+
+  const isCycle = (head) => {
+
+    let f = head
+    let s = head
+
+    while(f !== null && f.next !== null) {
+      f = f.next
+      s = s.next.next
+
+      if( f === s) {
+        return true
+      }
+    }
+
+    return false
+
+
+  }
+
+
+  console.log(isCycle(a))
+
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

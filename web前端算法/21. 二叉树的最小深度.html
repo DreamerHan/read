@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 111
+// 找到二叉树中层级最小深度，根节点到最近叶子节点的层级最少，并统计数量。
+
+const tree = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: {
+        val: '8',
+        left: null,
+        right: null
+      }, 
+      right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null,
+      right: null
+    },
+    right: {
+      val: '7',
+      left: null, right: null
+    }
+  }
+}
+
+
+
+
+const miniDepth = (root) => {
+
+  if(!root) return 0
+
+  const stack = [[root, 1]]
+
+  while( stack.length ) {
+
+    const test = JSON.parse(JSON.stringify(stack))
+
+    console.log('>>>', test)
+
+    const [o, n] = stack.shift()
+
+    console.log('o>>', o)
+
+    if( !o.left && !o.right) {
+      return n
+    }
+
+    if( o.left ) stack.push( [o.left, n + 1])
+    if( o.right) stack.push( [o.right, n + 1])
+ 
+  }
+}
+
+console.log(miniDepth(tree))
+
+
+
+
+
+// 推演过程，一直有子级的会被不停的推进栈中，放到栈的后面
+// 之前的一直随着循环出栈，直到出栈的这个没有 left 和 right 了。说明它到底了，就是最小的。
+
+// stack = [ [root, 1]]
+
+// o = root
+
+// stack = [ [val: 1, 2], [val: 3, 2]]
+
+// o = val: 1
+
+// stack = [ [val: 3, 2], [val: 4, 3], [val: 5, 3]]
+
+// o = val: 3
+
+// stack = [ [val: 4, 3], [val: 5, 3], [val: 6, 3], [val: 7, 3]]
+
+// o = val: 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

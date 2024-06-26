@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="child"></div>
+  </div>
+
+  <style>
+    .container {
+      width: 800px;
+      height: 600px;
+      border: 1px solid #333;
+      border-radius: 3px;
+      margin: 0 auto;
+    }
+    .child {
+      width: 100px;
+      height: 150px;
+      background: red;
+    }
+  </style>
+
+  <!-- 父子级定位模式 -->
+  <!-- <style>
+    .container {
+      position: relative;
+    }
+    .child {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style> -->
+
+  <!-- display: flex 模式1 -->
+  <!-- <style>
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style> -->
+
+  <!-- display: flex 模式2 -->
+  <!-- <style>
+    .container {
+      display: flex;
+      align-items: center;
+    }
+
+    .child {
+      margin: 0 auto;
+    }
+  </style> -->
+
+
+  <!-- display: grid 布局1 -->
+  <!-- <style>
+    .container {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+    }
+  </style> -->
+
+
+  <!-- display: grid 布局2 -->
+  <style>
+    .container {
+      display: grid;
+      place-items: center;
+    }
+
+  </style>
+
+</body>
+</html>

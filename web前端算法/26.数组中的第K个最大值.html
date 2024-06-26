@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+// 力扣 215
+
+// 找出 nums 列里，第 k 大的值。
+
+const nums = [3,2,1,5,6,4]
+const k = 2
+
+
+// 利用 25 中的最小堆即可完成
+
+nums.forEach(item => {
+  miniHeap.insert(item)
+
+  const test = JSON.parse(JSON.stringify(miniHeap))
+  console.log('test>', test)
+
+  if(miniHeap.size() > 2) {
+    miniHeap.pop()
+
+    const test2 = JSON.parse(JSON.stringify(miniHeap))
+    console.log('pop后', test2)
+  }
+})
+
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+  function add(x, y) {
+    console.log(x, y)
+  }
+
+  add(...[1,2]) // 数组使用扩展符变成 逗号 分割的部分
+
+
+  const arr1 = [1,2,3,4,5]
+
+  const arr2 = ['a', 'b', ...arr1]
+  console.log(arr2)
+
+
+  arr1.push(10)
+
+  console.log(arr2)
+
+
+
+</script>
+
+
+</body>
+</html>

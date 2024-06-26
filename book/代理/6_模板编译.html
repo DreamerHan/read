@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <h1>{{stage}}平台课程：</h1>
+    
+  </div>
+
+  <!-- <h1>{{stage}}平台课程：{{course.title}}</h1> -->
+    <!-- <h1>{{stage}}平台课程：{{course.title}}</h1> -->
+    <!-- <p>{{course.title}}是{{course.author}}</p>
+    <p>发布时间{{course.publishTime}}</p> -->
+
+
+<script>
+let data = {
+  stage: '来了来了',
+  course: {
+    title: '前端开发',
+    author: 'lucy',
+    publishTime: '2022年7月23日'
+  }
+}
+compile(document.querySelector('#app'), data)
+
+
+function compile(el, data) {
+  let fragment = document.createDocumentFragment()
+
+  while(child = el.firstChild) {
+    // appendChild 有剪切作用，#app 下的元素被全部移动到了 fragment 中
+    fragment.appendChild(child)
+  }
+
+  console.log(fragment)
+
+  function replace(fragment) {
+    Array.from(fragment.childNodes).forEach(node => {
+
+      let textContent = node.textContent
+
+      let reg = /\{\{\s*(.*?)\s*\}\}/g
+
+      console.group('start ----------')
+
+      console.log('node', node)
+      console.log('nodeType', node.nodeType)
+      console.log('textContent', textContent, reg.test(textContent))
+
+      console.groupEnd('end ----------')
+
+      // const isFind = node.nodeType === 3 && reg.test(node.textContent)
+
+      // console.log('isFind>>>', isFind)
+
+      if(node.nodeType === 3 && reg.test(node.textContent)) {
+
+        const nodeTextContent = node.textContent
+
+        const replaceText = () => {
+          node.textContent = nodeTextContent.replace(reg, (matched, placeholder) => {
+            console.log('placeholder', placeholder, placeholder.split('.'))
+
+            const res = placeholder.split('.').reduce((prev, key) => {
+              console.log('prev>', prev, 'key>', key)
+              return prev[key]
+            }, data)
+
+            console.log('res', res)
+            return res
+          })
+        }
+        replaceText()
+      }
+
+      // 如果还有子节点，则继续递归 repalce
+      if(node.childNodes && node.childNodes.length) {
+        replace(node)
+      }
+    })
+  }
+
+  replace(fragment)
+
+  el.appendChild(fragment)
+
+  return el
+
+
+}
+
+
+
+
+</script>
+
+
+</body>
+</html>

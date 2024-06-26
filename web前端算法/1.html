@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+<div>
+  给定一个只包含 '(', ')', '{', '}', '[', ']' 的字符串 s，判断字符串是否有效。 
+</div>
+
+<p>
+  有效字符串需要满足：
+  1. 左括号必须用相同类型的右括号闭合。
+  2. 左括号必须以正确的顺序闭合
+</p>
+
+
+<h4>利用入栈出栈的原理</h4>
+
+<script>
+
+// 一个 for 循环，时间复杂度和空间复杂度都是 O(N)
+
+const isValid = function(s) {
+
+  const stack = []
+
+  for(let i=0; i<s.length; i++) {
+
+    const start = s[i]
+
+    if(s[i] == '(' || s[i] == '{' || s[i] == '[') {
+
+      stack.push( s[i] )
+
+    } else {
+
+      const end = stack[ stack.length - 1 ]
+
+      if( 
+        start == ")" && end == "(" ||
+        start == "}" && end == "{" ||
+        start == "]" && end == "[" 
+      ) {
+        stack.pop()
+      } else {
+        return false
+      }
+    }
+  }
+
+  return stack.length === 0
+
+}
+
+
+
+console.log(isValid('(){}'))
+console.log(isValid('(}{}'))
+
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+class MiniHeap {
+  constructor() {
+    this.heap = []
+  }
+
+  // 添加元素
+  insert( value ) {
+    this.heap.push( value )
+    this.up( this.heap.length - 1 )
+  }
+
+  // 位置前移操作
+  // 对比新的数字是否比前面的小，小的话就向前移动
+  up(index) {
+    // 如果只有一个元素或已经移动到第一位了就不需要移动了
+    if( index === 0) {
+      return
+    }
+
+    const parentIndex = this.getParentIndex(index)
+
+    // 父元素大于当前节点值，就互换
+    if(this.heap[parentIndex] > this.heap[index]) {
+      this.switch( parentIndex, index )
+
+      // 如果换过一次后，前面还有更小的，就递归继续更替
+      this.up( parentIndex )
+    }
+  } 
+  
+  // 获取左节点
+  getLeftNodeIndex( index ) {
+    return index * 2 + 1
+  }
+
+  // 获取右节点
+  getRightNodeIndex( index ) {
+    return index * 2 + 2
+  }
+
+
+  // 位置后移操作
+  // 获取左右子节点， 比子节点大就自动后移
+  down( index ) {
+    const leftNodeIndex = this.getLeftNodeIndex( index )
+    const rightNodeIndex = this.getRightNodeIndex( index )
+
+    if( this.heap[ leftNodeIndex ] < this.heap[ index ] ) {
+      this.switch( leftNodeIndex, index )
+
+      this.down( leftNodeIndex )
+    }
+
+    if( this.heap[ rightNodeIndex ] < this.heap[index] ) {
+      this.switch( rightNodeIndex, index )
+
+      this.down( rightNodeIndex )
+    }
+  }
+
+  // 删除堆顶，整体的元素向前移动是很费时的
+  // 所以，最佳的方式是，尾部移动到头部，然后将当前元素后移即可
+  pop() {
+    this.heap[0] = this.heap.pop()
+
+    this.down( 0 )
+  }
+
+  // 获取堆顶
+  peek() {
+    return this.heap[0]
+  }
+
+  // 堆长度
+  size() {
+    return this.heap.length
+  }
+  
+  // 更换位置
+  switch(index1, index2) {
+    const temp = this.heap[index1]
+    this.heap[index1] = this.heap[index2]
+    this.heap[index2] = temp
+  }
+
+  // 找到子节点的父节点
+  getParentIndex( index ) {
+    return Math.floor( (index - 1) / 2 )
+  }
+
+
+}
+
+
+
+const miniHeap = new MiniHeap()
+
+miniHeap.insert(3)
+miniHeap.insert(2)
+miniHeap.insert(1)
+miniHeap.insert(5)
+miniHeap.insert(6)
+miniHeap.insert(4)
+
+console.log(miniHeap.peek())
+
+
+
+// console.log( miniHeap )
+
+// setTimeout(() => {
+
+//   miniHeap.pop()
+
+//   console.log( miniHeap)
+
+// }, 3000)
+
+
+
+
+</script>
+  
+
+
+</body>
+</html>

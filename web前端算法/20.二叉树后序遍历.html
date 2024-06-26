@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+const tree = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: null, right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null, right: null
+    },
+    right: {
+      val: '7',
+      left: null, right: null
+    }
+  }
+}
+
+
+
+// 二叉树的 “后序遍历”，遍历技巧：左右根
+// 它优先深入到 “左子树” 的最深一层的 “左子树”，然后寻找 “右子树”，最后向上寻找上一级。
+// 左侧都遍历结束后，开始”右子树“的最深一层的 “左子树”，然后寻找"右子树"，再向上一级寻找根。
+// 4 => 5 => 2 => 6 => 7 => 3 => 1
+const deepMode = (tree) => {
+  const arr = []
+
+  const fun = (node) => {
+
+    if(!node) return
+
+    fun(node.left)
+    fun(node.right)
+    arr.push(node.val)
+
+  }
+  fun(tree)
+
+  return arr
+}
+
+console.log('递归模式', deepMode(tree))
+
+
+// 非递归版本
+const notDeepMode = (tree) => {
+  if(!tree) return []
+
+  const arr = []
+  const stack = [tree]
+
+  while( stack.length ) {
+    const o = stack.pop()
+    arr.unshift( o.val )
+
+    o.left && stack.push( o.left )
+    o.right && stack.push( o.right )
+
+  }
+  
+  return arr 
+}
+
+console.log('非递归模式', notDeepMode(tree))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

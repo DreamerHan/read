@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+const str = 'abc'
+for(let i of str) {
+  console.log('str-i>>', i)
+}
+
+
+const arr = ['a', 'b','c','d']
+for(let i of arr) {
+  console.log('arr-i', i)
+}
+
+
+
+// json 没有 iterator 接口
+const json = { a: 'aa', b: 'bb', c: 'cc', d: 'dd'}
+// for(let i of json) {
+//   console.log('json-i>>', i)
+// }
+
+for(let i in json) {
+  console.log('json-forin-i>>', i)
+}
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

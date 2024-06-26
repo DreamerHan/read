@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+如果组件内多次调用 useState 或 useEffect, 
+
+那么我们的实现为了区分每次调用 useState 之前不同的 state 值及对应的 setter 函数，
+
+就需要额外使用一个数组来存储每次调用的配对值，代码 如下。
+  
+
+<script>
+
+const React = (function() {
+  let hooks = []
+  let currentHook = 0
+
+  return Object.assign(React, {
+    useState(initialStateValue) {
+      hooks[currentHook] = hooks[currentHook] || initialStateValue
+
+      function setState(value) {
+        hooks[currentHook] = value
+      }
+
+      return [hooks[currentHook], setState]
+    },
+
+    useEffect(callback, depsArray) {
+
+      const shouldUpdate = !depsArray
+
+      const depsChange = hooks[currentHook] ? !hooks[currentHook].every((depItem, index) => depItem === depsArray[index]) : true
+
+      if(shouldUpdate || depsChange) {
+        callback()
+
+        hooks[currentHook] = depsArray || []
+      }
+    }
+  })
+})()
+
+
+
+
+</script>
+</body>
+</html>

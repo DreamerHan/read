@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="img-box1">
+    <p>图片1加载中...</p>
+    <img data-src="https://p2.ssl.qhimgs1.com/sdr/400__/t01010db06fcc627a58.jpg" alt="火影图片" />
+  </div>
+
+  <div class="img-box2">
+    <p>图片2加载中...</p>
+    <img data-src="https://p1.ssl.qhimgs1.com/sdr/400__/t0349add84b960f1b61.jpg" alt="女帝" />
+  </div>
+
+  <style>
+    .img-box1, .img-box2 {
+      width: 400px;
+      height: 300px;
+      border: 1px solid #ccc;
+      position: absolute;
+      left: 200px;
+    }
+
+    .img-box1 img, .img-box2 img {
+      height: 300px;
+    }
+
+    .img-box1 {
+      top: 1000px;
+    }
+
+    .img-box2 {
+      top: 2000px;
+    }
+  </style>
+
+
+<!-- 方法1: 通过计算图片位置来处理 -->
+<!-- 
+  <script src="../防抖节流/throttle.js"></script>
+  <script>
+    let imgs = document.querySelectorAll('img')
+
+    const scrollFn = window.write_throttle(() => {
+      Array.from(imgs).forEach((img, index) => {
+
+        if(img.getBoundingClientRect().top < window.innerHeight) {          
+          const tip = img.previousElementSibling
+
+          setTimeout(() => {
+            tip.style.display = 'none'
+            img.src = img.dataset.src
+          }, 300)
+        }
+      })
+    }, 500)
+
+    window.addEventListener('scroll', scrollFn, false)
+  </script> -->
+
+  <!-- 方法2: 通过浏览器原声 API 来处理 -->
+  <!-- <script>
+    let imgs = document.querySelectorAll('img')
+
+    const observer = new IntersectionObserver(([entrys]) => {
+
+      if(entrys.isIntersecting) {
+        const img = entrys.target
+        const tipDom = img.previousElementSibling
+
+        setTimeout(() => {
+          tipDom.style.display = 'none'
+          img.style.display = 'block'
+          img.src = img.dataset.src
+        }, 2000)
+      }
+    })
+
+    imgs.forEach(img => observer.observe(img))
+
+  </script> -->
+
+
+
+  <script>
+    console.log('loading' in HTMLImageElement.prototype)
+
+  </script>
+
+</body>
+</html>

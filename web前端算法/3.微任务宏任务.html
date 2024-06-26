@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+  Promise.resolve('3333').then(data => {
+    console.log(data)
+
+    Promise.resolve('Promise.resolve.resolve').then(data => {
+      console.log(data)
+    })
+
+    setTimeout(() => {
+      console.log('Promise.resolve setTimeout')
+    }, 0)
+  })
+
+
+  setTimeout(() => {
+    console.log(22222)
+
+    Promise.resolve('setTimeout Promise.resolve').then(data => {
+      console.log(data)
+    })
+
+    setTimeout(() => {
+      console.log('setTimeout setTimeout')
+    }, 0)
+  }, 0)
+
+
+
+  console.log('111111')
+
+
+
+</script>
+
+
+</body>
+</html>

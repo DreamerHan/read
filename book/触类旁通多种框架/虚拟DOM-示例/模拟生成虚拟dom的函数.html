@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+const setAttribute = (node, key, value) => {
+  switch(key) {
+    case 'style': 
+      node.style.cssText = value
+      break;
+
+    case 'value': 
+      let tagName = node.tagName || ''
+      tagName = tagName.toLowerCase()
+
+      if(tagName === 'input' || tagName === 'textarea') {
+        node.value = value
+      } else {
+        // 如果节点不是input或者textarea，使用setAttribute 设置属性
+        node.setAttribute(key, value)
+      }
+      break;
+
+    default:
+      node.setAttribute(key, value)
+      break;
+  }
+}
+
+class Element {
+  constructor( tagName, attributes={}, children=[] ) {
+    this.tagName = tagName
+    this.attributes = attributes
+    this.children = children
+  }
+
+  render() {
+    let element = document.createElement(this.tagName)
+    let attributes = this.attributes
+
+    for(let key in attributes) {
+      setAttribute(element, key, attributes[key])
+    }
+
+    let children = this.children
+
+    children.forEach(child => {
+      let childElement = child instanceof Element 
+        ? child.render() // 若child也是虚拟节点，则递归进行
+        : document.createTextNode(child) // 若是字符串，则直接创建文本节点
+      
+      element.appendChild(childElement)
+    })
+
+    console.log('element', element)
+
+    return element
+  }
+}
+
+
+function element(tagName, attributes, children) {
+  return new Element(tagName, attributes, children)
+}
+
+const renderDom = (element, target) => {
+  target.appendChild(element)
+}
+
+const virtuleDom = element('ul', { id: 'list', style: 'border: 1px solid #000;' }, [
+  element('li', {class: 'list-item' }, ['litItem']),
+  element('li', {class: 'list-item' }, ['litItem']),
+  element('li', {class: 'list-item' }, ['litItem'])
+])
+
+const dom = virtuleDom.render()
+renderDom(dom, document.body)
+
+</script>
+
+</body>
+</html>

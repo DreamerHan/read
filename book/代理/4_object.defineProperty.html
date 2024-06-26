@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+const arrExtend = Object.create(Array.prototype)
+
+const arrMethods = [
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+]
+
+arrMethods.forEach(method => {
+  const oldMethod = Array.prototype[method]
+
+  const newMethod = function(...args) {
+    oldMethod.apply(this, args)
+
+    console.log(`${method}方法被调用了`)
+  }
+
+  arrExtend[method] = newMethod
+
+})
+
+Array.prototype = Object.assign(Array.prototype, arrExtend)
+
+
+
+let data = {
+  stage: '来了来了',
+  course: {
+    title: '前端开发',
+    author: 'lucy',
+    publishTime: '2022年7月23日'
+  },
+  author: ['李白', '杜甫']
+}
+
+const observe = (data, isTrue = false) => {  
+  if(!data || typeof data !== 'object') {
+    return
+  }
+
+  Object.keys(data).forEach((key) => {
+    let currentVal = data[key]
+
+    observe(data[key], true)
+
+    if(!isTrue) {
+      console.log('key:', key, 'value:', currentVal)
+    }
+  
+    Object.defineProperty(data, key, {
+      enumerable: true, // 可枚举的
+      configurable: false, // 可配置的
+      get() {
+        console.log(`getting ${key} value now, value is ${JSON.stringify(currentVal)}`)
+  
+        return currentVal
+      },
+      set(newValue) {
+        currentVal = newValue
+        console.log(`setting ${key} value now, setting value is ${newValue}`)
+      }
+    })
+  })
+}
+
+observe(data, true)
+
+// data.course.title = '修改title使set触发'
+
+
+data.author.push('高适')
+
+console.log(data.author)
+  
+</script>
+
+
+
+</body>
+</html>

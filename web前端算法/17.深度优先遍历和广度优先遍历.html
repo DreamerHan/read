@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+
+const tree = {
+  val: 'a',
+  children: [
+    {
+      val: 'b',
+      children: [
+        { val: 'c', children: [] },
+        { val: 'd', children: [] },
+      ]
+    },
+    {
+      val: 'e',
+      children: [
+        { val: 'f', children: [] },
+        { val: 'g', children: [] },
+      ]
+    }
+  ]
+}
+
+
+
+// 概念
+// 深度优先遍历，是从一个层级一直深入到底。再进入另一个模块，深度到底。
+// a -> b -> c -> d 然后再进入 a -> e -> f -> g
+
+
+// 广度优先遍历，是先摆平完整的一个层级，然后再继续深入更深层级。
+// a -> b -> e -> c -> d -> f -> g
+
+// 概念结束
+
+// 深度优先遍历的技巧：从根节点入手，对根节点下含有 children 字段的项一直遍历到底才停止。
+const deep = (root) => {
+  console.log('深度遍历', root.val)
+
+  root.children.forEach(item => deep(item))
+}
+
+deep(tree)
+
+
+
+// 广度优先遍历的技巧：以队列的形式，先进先出。从根节点出发，优先访问距离根节点最近的节点。
+
+// 1. 创建一个队列，先把根节点入队
+// 2. 队头出对
+// 3. 把队头的 children 挨个入队
+// 4. 重复 2 和 3，知道队列为空
+
+const width = (root) => {
+  const arr = [root]
+
+  while(arr.length > 0) {
+    o = arr.shift()
+    console.log('广度遍历', o.val)
+
+    o.children.forEach(item => arr.push(item))
+  }
+}
+
+width(tree)
+
+
+
+</script>
+
+</body>
+</html>

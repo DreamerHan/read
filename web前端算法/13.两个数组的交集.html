@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+
+// 力扣 349
+
+const num1 = [4,9,5]
+const num2 = [9,4,9,8,5]
+
+const intersection = (num1, num2) => {
+  // set 去重
+  let set = new Set(num2)
+
+  return [...new Set(num1)].filter(item => set.has(item))
+}
+
+
+// 这个方法最经典的是先通过 set 去重了
+console.log(intersection(num1, num2))
+
+
+
+
+</script>
+</body>
+</html>

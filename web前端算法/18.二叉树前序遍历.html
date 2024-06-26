@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+
+// 树分为多叉树和二叉树
+
+// 多叉树，就是一个级别下有很多个子级别。类比：一个 DIV 下包含了 N 个 P 标签，这个 DIV 的 DOM 树就是“多叉树”。
+// 二叉树，就是一个级别下只有两个子级别。类比：一个 DIV 下包含了 2 个 P 标签，这个 DIV 的 DOM 树就是“二叉树”。
+//        二叉树左侧的分支被称为 “左子树”，右侧的分支被称为 “右子树”。
+
+const tree = {
+  val: '1',
+  left: {
+    val: '2',
+    left: {
+      val: '4',
+      left: null, right: null
+    },
+    right: {
+      val: '5',
+      left: null, right: null
+    }
+  },
+  right: {
+    val: '3',
+    left: {
+      val: '6',
+      left: null, right: null
+    },
+    right: {
+      val: '7',
+      left: null, right: null
+    }
+  }
+}
+
+
+
+// 二叉树的 “前序遍历”，又叫 “先序遍历”。
+// 遍历技巧：左右左，任何一级都是先左后右 + 深度遍历
+// 1 -> 2 -> 4 -> 5 -> 3 -> 6 -> 7
+
+
+// 递归模式
+const preorder = (tree) => {
+  let arr = []
+
+  const fun = (node) => {
+    
+    if( node ) {
+      // 先添加根节点
+      arr.push(node.val)
+      
+      // 遍历左子树
+      fun(node.left)
+
+      // 遍历右子树
+      fun(node.right)
+    }
+
+  }
+
+  fun(tree)
+
+  return arr
+}
+
+console.log(preorder(tree))  // [1,2,4,5,3,6,7]
+
+
+// 入栈出栈模式
+const stackMode = (tree) => {
+  let arr = []
+
+  if(!tree) { return arr }
+
+  // 根节点入栈
+  let stack = [tree]
+  while( stack.length ) {
+    let o = stack.shift()
+    arr.push(o.val)
+
+    o.right && stack.unshift(o.right)
+    o.left && stack.unshift(o.left)
+  }
+
+
+  return arr
+}
+
+console.log(stackMode(tree))
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
